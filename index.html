@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>咖哩曼谷員旅 2026.9.16-19</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+    background: #f7f6f3;
+  }
+  header {
+    background: #111;
+    color: #fff;
+    padding: 32px 20px 24px;
+    text-align: center;
+  }
+  header .label {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #cbbf9f;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  header .dates {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #aaa;
+  }
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px;
+  }
+  .day {
+    margin-bottom: 22px;
+    background: #fff;
+    border: 1px solid #e5e2da;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #111;
+    color: #fff;
+    padding: 12px 16px;
+  }
+  .day-header .date {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .day-header .weekday {
+    font-size: 14px;
+    color: #cbbf9f;
+    letter-spacing: 1px;
+  }
+  .items {
+    padding: 4px 0;
+  }
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0eee8;
+  }
+  .item:last-child {
+    border-bottom: none;
+  }
+  .icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f2efe6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .icon.hotel { background: #e7eef5; }
+  .icon.food { background: #fdeee0; }
+  .icon.shop { background: #f3e8f0; }
+  .icon.beauty { background: #fbe7ec; }
+  .icon.flight { background: #e9f5ee; }
+  .text .title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .text .title a {
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px dashed #b5a887;
+  }
+  .text .sub {
+    font-size: 14px;
+    color: #888;
+    margin-top: 2px;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 14px;
+    color: #a8895a;
+    background: #f6efe2;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+  footer {
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+    padding: 20px;
+    letter-spacing: 1px;
+  }
+  .period {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .period.morning { color: #3a8a63; }
+  .period.noon { color: #a8823a; }
+  .period.afternoon { color: #3a5aa8; }
+  .tabs {
+    display: flex;
+    max-width: 480px;
+    margin: 0 auto;
+    background: #111;
+  }
+  .tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 14px 0;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  .tab-btn.active {
+    color: #fff;
+    border-bottom: 2px solid #cbbf9f;
+  }
+  .page { display: none; }
+  .page.active { display: block; }
+  .price-note {
+    font-size: 14px;
+    color: #a8895a;
+    background: #f6efe2;
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .section {
+    background: #fff;
+    border: 1px solid #e5e2da;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .section-title {
+    background: #111;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 16px;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: #a8895a;
+    padding: 8px 16px 0;
+    font-weight: 700;
+  }
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid #f0eee8;
+    font-size: 13.5px;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row .name { flex: 1; padding-right: 10px; }
+  .price-row .price {
+    font-weight: 700;
+    color: #111;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  .ledger-day-header {
+    background: #111;
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ledger-day-header .weekday {
+    font-size: 14px;
+    color: #cbbf9f;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .ledger-day-block {
+    border: 1px solid #e5e2da;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+  .ledger-row {
+    background: #fff;
+    border: 1px solid #e5e2da;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .ledger-row input[type="text"] {
+    flex: 3;
+    min-width: 0;
+    border: 1px solid #e5e2da;
+    border-radius: 3px;
+    padding: 7px 8px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .ledger-row input[type="number"] {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #e5e2da;
+    border-radius: 3px;
+    padding: 7px 6px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .ledger-row select.currency-select {
+    flex: 0.7;
+    min-width: 0;
+    border: 1px solid #e5e2da;
+    border-radius: 3px;
+    padding: 7px 2px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+    color: #444;
+  }
+  .ledger-row select.payment-select {
+    flex: 1.3;
+    min-width: 0;
+    border: 1px solid #e5e2da;
+    border-radius: 3px;
+    padding: 7px 2px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+    color: #444;
+  }
+  .ledger-del {
+    background: none;
+    border: none;
+    color: #c0392b;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 2px;
+    flex: none;
+  }
+  .add-row-btn {
+    width: 100%;
+    background: #e8dfc9;
+    color: #7a6a4e;
+    border: 1px solid #e5d9c3;
+    border-radius: 4px;
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-bottom: 16px;
+  }
+  .ledger-total {
+    background: #e8dfc9;
+    color: #7a6a4e;
+    border: 1px solid #e5d9c3;
+    border-radius: 4px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .ledger-total .amount { color: #7a6a4e; font-size: 17px; }
+  .ledger-grand {
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    padding: 6px 0 4px;
+  }
+  .rate-row {
+    font-size: 14px;
+    color: #888;
+    text-align: right;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+  }
+  .rate-row input {
+    width: 55px;
+    border: 1px solid #e5e2da;
+    border-radius: 3px;
+    padding: 4px 6px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="label">Bangkok Trip</div>
+  <h1>咖哩曼谷員旅</h1>
+  <div class="dates">2026.9.16 — 9.19</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showPage('itinerary', this)">行程</button>
+  <button class="tab-btn" onclick="showPage('pricelist', this)">美甲價目表</button>
+  <button class="tab-btn" onclick="showPage('ledger', this)">記帳</button>
+</div>
+
+<div class="container page active" id="page-itinerary">
+
+  <div class="day">
+    <div class="day-header">
+      <span class="date">9/16（三）</span>
+      <span class="weekday">DAY 1</span>
+    </div>
+    <div class="items">
+      <div class="item">
+        <div class="icon flight">✈️</div>
+        <div class="text">
+          <span class="period morning">上午</span>
+          <div class="title">中華航空 CI833</div>
+          <div class="sub">07:00 桃園機場 → 09:45 曼谷蘇凡納布機場</div>
+          <span class="tag">04:30 機場第一航站8號櫃檯集合</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="icon hotel">🏨</div>
+        <div class="text">
+          <span class="period noon">中午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Cross+Vibe+Bangkok+Sukhumvit" target="_blank">Cross Vibe Bangkok Sukhumvit</a></div>
+          <div class="sub">下榻飯店 · TEL: 66-2-331-9091</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="icon shop">🌆</div>
+        <div class="text">
+          <span class="period afternoon">下午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Asiatique+The+Riverfront+Bangkok" target="_blank">Asiatique 河濱夜市</a></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="icon food">🍽️</div>
+        <div class="text">
+          <span class="period afternoon">下午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Peppery+Thai+Bistro+Asiatique+Warehouse+6" target="_blank">Peppery Thai Bistro</a></div>
+          <div class="sub">Asiatique 六號倉庫</div>
+          <span class="tag">晚餐</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="day-header">
+      <span class="date">9/17（四）</span>
+      <span class="weekday">DAY 2</span>
+    </div>
+    <div class="items">
+      <div class="item">
+        <div class="icon beauty">💅</div>
+        <div class="text">
+          <span class="period morning">上午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Cicely+nail+bar+Bangkok" target="_blank">Cicely nail bar</a></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="icon shop">👜</div>
+        <div class="text">
+          <span class="period morning">上午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Louis+Vuitton+The+Place+Bangkok" target="_blank">LV The Place - Visionary Journeys</a></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="icon shop">🛍️</div>
+        <div class="text">
+          <span class="period noon">中午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Central+World+Bangkok" target="_blank">EASY! buddy Central World</a></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="icon shop">🏬</div>
+        <div class="text">
+          <span class="period afternoon">下午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Central+World+Bangkok" target="_blank">中央世界購物商場</a></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="icon shop">🛒</div>
+        <div class="text">
+          <span class="period afternoon">下午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=Siam+Square+One+Bangkok" target="_blank">暹邏一號廣場</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="day-header">
+      <span class="date">9/18（五）</span>
+      <span class="weekday">DAY 3</span>
+    </div>
+    <div class="items">
+      <div class="item">
+        <div class="icon shop">🏙️</div>
+        <div class="text">
+          <span class="period afternoon">下午</span>
+          <div class="title"><a href="https://www.google.com/maps/search/?api=1&query=ICONSIAM+Bangkok" target="_blank">ICONSIAM</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="day-header">
+      <span class="date">9/19（六）</span>
+      <span class="weekday">DAY 4</span>
+    </div>
+    <div class="items">
+      <div class="item">
+        <div class="icon flight">✈️</div>
+        <div class="text">
+          <span class="period afternoon">下午</span>
+          <div class="title">中華航空 CI836</div>
+          <div class="sub">17:30 曼谷蘇凡納布機場 → 22:05 桃園機場</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container page" id="page-pricelist">
+
+  <div class="price-note">
+    翻譯為泰文原版之中文對照，僅供參考。金額皆為原文標示之泰銖(B)數字，用於實際結帳前請以現場泰文/店家確認為準。
+  </div>
+
+  <div class="section">
+    <div class="section-title">凝膠色（手 / 腳）</div>
+    <div class="price-row"><span class="name">硬式啫喱甲片（無色）</span><span class="price">฿599</span></div>
+    <div class="price-row"><span class="name">腳底單色</span><span class="price">฿599</span></div>
+    <div class="price-row"><span class="name">果凍色 / 暈染</span><span class="price">฿699</span></div>
+    <div class="price-row"><span class="name">跳色</span><span class="price">฿699</span></div>
+    <div class="price-row"><span class="name">貓眼</span><span class="price">฿799</span></div>
+    <div class="price-row"><span class="name">珠光</span><span class="price">฿799</span></div>
+    <div class="price-row"><span class="name">亮片珠光</span><span class="price">฿799</span></div>
+    <div class="price-row"><span class="name">漸層線條</span><span class="price">฿899</span></div>
+    <div class="price-row"><span class="name">大理石紋</span><span class="price">฿899</span></div>
+    <div class="price-row"><span class="name">法式</span><span class="price">฿899</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">加購（套裝，10指）</div>
+    <div class="price-row"><span class="name">加鑽</span><span class="price">+฿199</span></div>
+    <div class="price-row"><span class="name">加珠飾</span><span class="price">+฿199</span></div>
+    <div class="price-row"><span class="name">單指加購第1項</span><span class="price">+฿199</span></div>
+    <div class="price-row"><span class="name">加珍珠</span><span class="price">+฿299</span></div>
+    <div class="price-row"><span class="name">造型美甲加購</span><span class="price">฿299</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">加購項目（單指）</div>
+    <div class="price-row"><span class="name">貼鑽</span><span class="price">฿49–599</span></div>
+    <div class="price-row"><span class="name">3D</span><span class="price">฿49–599</span></div>
+    <div class="price-row"><span class="name">亮片</span><span class="price">฿49–199</span></div>
+    <div class="price-row"><span class="name">貼紙</span><span class="price">฿59–79</span></div>
+    <div class="price-row"><span class="name">手繪線條裝飾</span><span class="price">฿59</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">卸甲（手 / 腳）</div>
+    <div class="price-row"><span class="name">卸甲</span><span class="price">฿399</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">兒童美甲（手 / 腳）</div>
+    <div class="price-row"><span class="name">手 或 腳</span><span class="price">฿299</span></div>
+    <div class="price-row"><span class="name">手＋腳</span><span class="price">฿569 / ฿699</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">卸 / 洗甲</div>
+    <div class="section-sub">本店做 / 非本店做</div>
+    <div class="price-row"><span class="name">卸凝膠甲</span><span class="price">฿50 / ฿100</span></div>
+    <div class="price-row"><span class="name">卸硬式凝膠甲</span><span class="price">฿100 / ฿200</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">卸 / 洗其他（10指）</div>
+    <div class="price-row"><span class="name">卸法式甲片</span><span class="price">฿300</span></div>
+    <div class="price-row"><span class="name">卸厚甲片／加強甲片</span><span class="price">฿300</span></div>
+    <div class="price-row"><span class="name">卸PVC延甲</span><span class="price">฿399</span></div>
+    <div class="price-row"><span class="name">卸Builder／壓克力甲</span><span class="price">฿499</span></div>
+    <div class="price-row"><span class="name">卸壓克力甲／軟甲</span><span class="price">฿699</span></div>
+    <div class="price-row"><span class="name">甲面未完成清潔費</span><span class="price">+฿100</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Extension 延甲</div>
+    <div class="section-sub">1指 / 10指</div>
+    <div class="price-row"><span class="name">PVC extension</span><span class="price">฿100 / ฿999</span></div>
+    <div class="price-row"><span class="name">Acrylic gel extension</span><span class="price">฿160 / ฿1599</span></div>
+    <div class="price-row"><span class="name">Builder gel extension</span><span class="price">฿180 / ฿1799</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Overlay 加固（Builder gel / BIAB）</div>
+    <div class="section-sub">1指 / 10指</div>
+    <div class="price-row"><span class="name">短（S）</span><span class="price">฿70 / ฿700</span></div>
+    <div class="price-row"><span class="name">中長（M-L）</span><span class="price">฿90 / ฿900</span></div>
+    <div class="price-row"><span class="name">特長（XL）</span><span class="price">฿140 / ฿1299</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Infill 補甲</div>
+    <div class="section-sub">Acrylic gel · 1指 / 10指</div>
+    <div class="price-row"><span class="name">短–長（S-L）</span><span class="price">฿80 / ฿800</span></div>
+    <div class="price-row"><span class="name">特長（XL）</span><span class="price">฿100 / ฿1000</span></div>
+    <div class="section-sub">Builder gel · 1指 / 10指</div>
+    <div class="price-row"><span class="name">短（S）</span><span class="price">฿50 / ฿500</span></div>
+    <div class="price-row"><span class="name">中–長（M-L）</span><span class="price">฿70 / ฿700</span></div>
+    <div class="price-row"><span class="name">特長（XL）</span><span class="price">฿80 / ฿800</span></div>
+  </div>
+
+  <div class="price-note">
+    ★所有凝膠色服務皆已含硬式Overlay加固，加強甲片強度與服貼度（不含卸甲），讓凝膠色更持久。<br>
+    Cicely &amp; Cissy
+  </div>
+
+</div>
+
+<div class="container page" id="page-ledger">
+
+  <div class="rate-row">
+    匯率 1฿ = <input type="number" id="rate" value="0.93" step="0.01" onchange="renderLedger()"> 台幣
+  </div>
+
+  <div class="ledger-day-header">
+    <span>9/16（三）</span><span class="weekday">DAY 1</span>
+  </div>
+  <div class="ledger-day-block">
+    <div id="ledger-rows-1"></div>
+    <button class="add-row-btn" onclick="addRow(1)">＋ 新增項目</button>
+    <div class="ledger-total"><span>Day 1 小計</span><span class="amount" id="ledger-sum-1">฿0</span></div>
+  </div>
+
+  <div class="ledger-day-header">
+    <span>9/17（四）</span><span class="weekday">DAY 2</span>
+  </div>
+  <div class="ledger-day-block">
+    <div id="ledger-rows-2"></div>
+    <button class="add-row-btn" onclick="addRow(2)">＋ 新增項目</button>
+    <div class="ledger-total"><span>Day 2 小計</span><span class="amount" id="ledger-sum-2">฿0</span></div>
+  </div>
+
+  <div class="ledger-day-header">
+    <span>9/18（五）</span><span class="weekday">DAY 3</span>
+  </div>
+  <div class="ledger-day-block">
+    <div id="ledger-rows-3"></div>
+    <button class="add-row-btn" onclick="addRow(3)">＋ 新增項目</button>
+    <div class="ledger-total"><span>Day 3 小計</span><span class="amount" id="ledger-sum-3">฿0</span></div>
+  </div>
+
+  <div class="ledger-day-header">
+    <span>9/19（六）</span><span class="weekday">DAY 4</span>
+  </div>
+  <div class="ledger-day-block">
+    <div id="ledger-rows-4"></div>
+    <button class="add-row-btn" onclick="addRow(4)">＋ 新增項目</button>
+    <div class="ledger-total"><span>Day 4 小計</span><span class="amount" id="ledger-sum-4">฿0</span></div>
+  </div>
+
+  <div class="ledger-total" style="background:#111; color:#fff;">
+    <span>四天總計</span><span class="amount" id="ledger-grand-total" style="color:#cbbf9f;">฿0</span>
+  </div>
+  <div class="ledger-grand" id="ledger-grand-twd">約 NT$0</div>
+
+</div>
+
+<footer>MADE FOR 咖哩 · BANGKOK 2026</footer>
+
+<script>
+var ledgerData = { 1: [], 2: [], 3: [], 4: [] };
+var rowIdCounter = 0;
+
+function addRow(day, item, price, currency, payment) {
+  rowIdCounter++;
+  var id = 'row' + rowIdCounter;
+  ledgerData[day].push({ id: id, item: item || '', price: price || '', currency: currency || 'THB', payment: payment || '現金' });
+  renderDay(day);
+}
+
+function removeRow(day, id) {
+  ledgerData[day] = ledgerData[day].filter(function(r){ return r.id !== id; });
+  renderDay(day);
+}
+
+function updateRow(day, id, field, value) {
+  var row = ledgerData[day].find(function(r){ return r.id === id; });
+  if (row) row[field] = value;
+  renderTotals();
+  saveLedger();
+}
+
+function renderDay(day) {
+  var container = document.getElementById('ledger-rows-' + day);
+  container.innerHTML = '';
+  ledgerData[day].forEach(function(row) {
+    var div = document.createElement('div');
+    div.className = 'ledger-row';
+    div.innerHTML =
+        '<input type="text" placeholder="項目名稱" value="' + escapeHtml(row.item) + '" oninput="updateRow(' + day + ',\'' + row.id + '\',\'item\',this.value)">' +
+        '<input type="number" placeholder="金額" value="' + row.price + '" oninput="updateRow(' + day + ',\'' + row.id + '\',\'price\',this.value); renderTotals();">' +
+        '<select class="currency-select" onchange="updateRow(' + day + ',\'' + row.id + '\',\'currency\',this.value); renderTotals();">' +
+          '<option value="THB"' + (row.currency==='THB'?' selected':'') + '>฿</option>' +
+          '<option value="TWD"' + (row.currency==='TWD'?' selected':'') + '>NT$</option>' +
+        '</select>' +
+        '<select class="payment-select" onchange="updateRow(' + day + ',\'' + row.id + '\',\'payment\',this.value)">' +
+          '<option' + (row.payment==='現金'?' selected':'') + '>現金</option>' +
+          '<option' + (row.payment==='信用卡'?' selected':'') + '>信用卡</option>' +
+        '</select>' +
+        '<button class="ledger-del" onclick="removeRow(' + day + ',\'' + row.id + '\')">✕</button>';
+    container.appendChild(div);
+  });
+  renderTotals();
+  saveLedger();
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderTotals() {
+  var rate = parseFloat(document.getElementById('rate').value) || 0.93;
+  var grandTHB = 0;
+  for (var d = 1; d <= 4; d++) {
+    var sumTHB = 0;
+    ledgerData[d].forEach(function(row) {
+      var p = parseFloat(row.price) || 0;
+      var inTHB = row.currency === 'TWD' ? (p / rate) : p;
+      sumTHB += inTHB;
+    });
+    document.getElementById('ledger-sum-' + d).textContent = '฿' + Math.round(sumTHB).toLocaleString();
+    grandTHB += sumTHB;
+  }
+  document.getElementById('ledger-grand-total').textContent = '฿' + Math.round(grandTHB).toLocaleString();
+  document.getElementById('ledger-grand-twd').textContent = '約 NT$' + Math.round(grandTHB * rate).toLocaleString();
+}
+
+function renderLedger() {
+  for (var d = 1; d <= 4; d++) renderDay(d);
+}
+
+function saveLedger() {
+  try {
+    localStorage.setItem('bkk-ledger', JSON.stringify(ledgerData));
+    localStorage.setItem('bkk-rate', document.getElementById('rate').value);
+  } catch (e) {}
+}
+
+function loadLedger() {
+  try {
+    var saved = localStorage.getItem('bkk-ledger');
+    var savedRate = localStorage.getItem('bkk-rate');
+    if (savedRate) document.getElementById('rate').value = savedRate;
+    if (saved) {
+      ledgerData = JSON.parse(saved);
+      var maxId = 0;
+      for (var d = 1; d <= 4; d++) {
+        (ledgerData[d] || []).forEach(function(r) {
+          var num = parseInt((r.id || '').replace('row',''));
+          if (num > maxId) maxId = num;
+        });
+      }
+      rowIdCounter = maxId;
+      renderLedger();
+    } else {
+      addRow(1); addRow(2); addRow(3); addRow(4);
+    }
+  } catch (e) {
+    addRow(1); addRow(2); addRow(3); addRow(4);
+  }
+}
+
+loadLedger();
+</script>
+
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(function(el){ el.classList.remove('active'); });
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(el){ el.classList.remove('active'); });
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>
